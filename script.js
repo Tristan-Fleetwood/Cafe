@@ -7,6 +7,27 @@ const nav = document.querySelector('.main-nav');
 
 let toastTimer;
 
+document.body.classList.add('motion-ready');
+
+const revealTargets = document.querySelectorAll('.section-heading, .menu-card, .story-copy, .visit-heading, .info-block');
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    observer.unobserve(entry.target);
+  });
+}, { threshold: 0.14 });
+
+revealTargets.forEach((element, index) => {
+  element.classList.add('reveal');
+  element.style.setProperty('--delay', `${Math.min(index * 70, 420)}ms`);
+  revealObserver.observe(element);
+});
+
+window.setTimeout(() => {
+  revealTargets.forEach((element) => element.classList.add('is-visible'));
+}, 250);
+
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
     const filter = tab.dataset.filter;

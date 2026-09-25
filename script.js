@@ -16,8 +16,7 @@ tabs.forEach((tab) => {
       item.setAttribute('aria-selected', selected);
     });
     cards.forEach((card) => {
-      const matches = filter === 'all' || card.dataset.category === filter;
-      card.classList.toggle('hidden', !matches);
+      card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
     });
   });
 });
@@ -26,7 +25,7 @@ orderButtons.forEach((button) => {
   button.addEventListener('click', () => {
     toast.classList.add('show');
     window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => toast.classList.remove('show'), 3000);
+    toastTimer = window.setTimeout(() => toast.classList.remove('show'), 3200);
   });
 });
 
